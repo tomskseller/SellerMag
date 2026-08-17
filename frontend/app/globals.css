@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  Дизайн-токены СеллерМага — вынесены из утверждённых макетов
+  (homepage-demo.jsx, catalog-product-demo.jsx, cart-checkout-demo.jsx),
+  чтобы не дублировать цвета/шрифты в каждом компоненте.
+*/
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --mint: #1fd6be;       /* основной бренд-цвет, CTA "Продолжить" */
+  --mint-dark: #0fa88f;
+  --mint-pale: #e4fbf6;
+
+  --coral: #ff6f5e;      /* акцент: "В корзину", "Оплатить" */
+  --coral-dark: #e5503f;
+
+  --ink: #1b1f22;        /* основной текст, тёмные плашки */
+  --ink-soft: #6e7580;   /* второстепенный текст */
+  --line: #eceeef;       /* границы, разделители */
+  --bg: #fafafa;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: var(--ink);
+  background: #fff;
+}
+
+.font-display {
+  font-family: 'Manrope', sans-serif;
+  letter-spacing: -0.02em;
+}
