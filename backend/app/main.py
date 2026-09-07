@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import settings
-from app.routers import products, orders
+from app.routers import products, orders, categories
 
 app = FastAPI(title="СеллерМаг API", version="0.1.0")
 
@@ -16,6 +16,7 @@ app.add_middleware(
 
 app.include_router(products.router)
 app.include_router(orders.router)
+app.include_router(categories.router)
 
 
 @app.get("/health")
