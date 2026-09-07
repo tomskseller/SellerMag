@@ -5,17 +5,20 @@ router = APIRouter(prefix="/products", tags=["products"])
 
 
 @router.get("")
-def list_products(category_slug: str | None = None):
+def list_products():
     """
-    Список товаров каталога. Если передан category_slug — фильтрует по категории.
-    TODO: когда в Supabase появятся реальные данные (после первой синхронизации
-    с Google Таблицей), заменить на настоящий запрос через get_supabase().
+    Список товаров каталога вместе с названием категории и всеми вариациями.
+    TODO: добавить настоящую фильтрацию по категории на уровне запроса к базе
+    (сейчас фильтрация по категории делается на фронтенде после получения
+    полного списка — приемлемо, пока ассортимент небольшой).
     """
     supabase = get_supabase()
-    query = supabase.table("products").select("*, product_variations(*)")
-    if category_slug:
-        query = query.eq("categories.slug", category_slug)
-    response = query.execute()
+    response = (
+        supabase.table("products")
+        .select("*, categories(name, slug), product_variations(*)")
+        .eq("is_active", True)
+        .execute()
+    )
     return response.data
 
 
@@ -25,7 +28,7 @@ def get_product(product_slug: str):
     supabase = get_supabase()
     response = (
         supabase.table("products")
-        .select("*, product_variations(*, wholesale_tiers(*))")
+        .select("*, categories(name, slug), product_variations(*, wholesale_tiers(*))")
         .eq("slug", product_slug)
         .single()
         .execute()
