@@ -2,24 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-/*
-  Дизайн-токены СеллерМага — вынесены из утверждённых макетов
-  (homepage-demo.jsx, catalog-product-demo.jsx, cart-checkout-demo.jsx),
-  чтобы не дублировать цвета/шрифты в каждом компоненте.
-*/
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  --mint: #1fd6be;       /* основной бренд-цвет, CTA "Продолжить" */
+  --mint: #1fd6be;
   --mint-dark: #0fa88f;
   --mint-pale: #e4fbf6;
 
-  --coral: #ff6f5e;      /* акцент: "В корзину", "Оплатить" */
+  --coral: #ff6f5e;
   --coral-dark: #e5503f;
 
-  --ink: #1b1f22;        /* основной текст, тёмные плашки */
-  --ink-soft: #6e7580;   /* второстепенный текст */
-  --line: #eceeef;       /* границы, разделители */
+  --ink: #1b1f22;
+  --ink-soft: #6e7580;
+  --line: #eceeef;
   --bg: #fafafa;
 }
 
@@ -33,3 +28,83 @@ body {
   font-family: 'Manrope', sans-serif;
   letter-spacing: -0.02em;
 }
+
+.btn {
+  font-weight: 800;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 24px;
+  cursor: pointer;
+  font-size: 13.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  transition: transform .12s ease, opacity .12s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.btn:hover { transform: translateY(-1px); opacity: .92; }
+.btn:disabled { opacity: .4; cursor: not-allowed; transform: none; }
+.btn-mint { background: var(--mint); color: #fff; }
+.btn-coral { background: var(--coral); color: #fff; }
+.btn-ink { background: var(--ink); color: #fff; }
+.btn-white { background: #fff; color: var(--ink); }
+.btn-ghost {
+  background: transparent; color: var(--ink); font-weight: 800; border: 2px solid var(--line);
+  border-radius: 8px; padding: 12px 20px; cursor: pointer; font-size: 13px;
+  text-transform: uppercase; letter-spacing: .03em; display: inline-flex; align-items: center; gap: 8px;
+}
+
+.chip {
+  border: 2px solid var(--line); border-radius: 8px; padding: 9px 15px;
+  font-size: 13.5px; font-weight: 700; color: var(--ink); background: #fff; cursor: pointer;
+  transition: all .15s ease;
+}
+.chip:hover { border-color: var(--ink); }
+.chip.active { border-color: var(--ink); background: var(--ink); color: #fff; }
+
+.cat-link {
+  display: block; width: 100%; text-align: left; padding: 9px 12px; border-radius: 8px;
+  font-size: 13.5px; font-weight: 700; color: var(--ink); background: transparent; cursor: pointer; border: none;
+  border-left: 3px solid transparent;
+}
+.cat-link:hover { background: #F5F6F6; }
+.cat-link.active { border-left-color: var(--coral); color: var(--coral-dark); background: #FFF3F1; }
+
+.card {
+  border: 1.5px solid var(--line); border-radius: 16px; background: #fff; cursor: pointer; overflow: hidden;
+  transition: transform .15s ease; text-decoration: none; display: block;
+}
+.card:hover { transform: translateY(-3px); }
+
+.toggle {
+  flex: 1; text-align: center; padding: 12px; border-radius: 8px; font-weight: 800; font-size: 13px;
+  text-transform: uppercase; letter-spacing: .02em; cursor: pointer; border: 2px solid var(--line); color: var(--ink-soft);
+}
+.toggle.active { border-color: var(--ink); background: var(--ink); color: #fff; }
+
+.option-card { border: 2px solid var(--line); border-radius: 14px; padding: 16px; cursor: pointer; }
+.option-card.active { border-color: var(--mint); background: var(--mint-pale); }
+
+.tier-row { border: 2px solid var(--line); border-radius: 10px; }
+.tier-row.active { border-color: var(--mint); background: var(--mint-pale); }
+
+.field {
+  width: 100%; border: 2px solid var(--line); border-radius: 8px; padding: 11px 14px;
+  font-size: 14px; font-weight: 500; outline: none; color: var(--ink);
+}
+.field:focus { border-color: var(--ink); }
+
+.fab {
+  width: 58px; height: 58px; border-radius: 50%; background: var(--coral); border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 26px rgba(255,111,94,.4);
+  transition: background .15s ease;
+}
+.fab:hover { background: var(--coral-dark); }
+.chat-option {
+  display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 10px;
+  border: 1.5px solid var(--line); background: #fff; cursor: pointer; text-decoration: none;
+  font-size: 13.5px; font-weight: 700; color: var(--ink); transition: border-color .15s ease;
+}
+.chat-option:hover { border-color: var(--mint); background: var(--mint-pale); }

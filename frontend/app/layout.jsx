@@ -1,4 +1,6 @@
 import './globals.css';
+import { CartProvider } from '../components/CartContext';
+import ChatWidget from '../components/ChatWidget';
 
 export const metadata = {
   title: 'СеллерМаг — упаковочные материалы оптом и в розницу',
@@ -8,7 +10,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="ru">
-      <body>{children}</body>
+      <body>
+        <CartProvider>
+          {children}
+          <ChatWidget />
+        </CartProvider>
+      </body>
     </html>
   );
 }

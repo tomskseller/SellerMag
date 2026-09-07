@@ -1,9 +1,13 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
-export async function getProducts(categorySlug) {
-  const url = new URL('/products', API_URL);
-  if (categorySlug) url.searchParams.set('category_slug', categorySlug);
-  const res = await fetch(url, { cache: 'no-store' });
+export async function getCategories() {
+  const res = await fetch(new URL('/categories', API_URL), { cache: 'no-store' });
+  if (!res.ok) throw new Error('Не удалось загрузить категории');
+  return res.json();
+}
+
+export async function getProducts() {
+  const res = await fetch(new URL('/products', API_URL), { cache: 'no-store' });
   if (!res.ok) throw new Error('Не удалось загрузить товары');
   return res.json();
 }
