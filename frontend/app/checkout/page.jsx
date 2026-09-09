@@ -61,6 +61,7 @@ export default function CheckoutPage() {
   const [company, setCompany] = useState(null);
   const [submitting, setSubmitting] = useState(false);
   const [orderNumber, setOrderNumber] = useState(null);
+  const [orderError, setOrderError] = useState(null);
 
   function lookupInn() {
     if (!inn) return;
@@ -74,6 +75,7 @@ export default function CheckoutPage() {
 
   async function submitOrder() {
     setSubmitting(true);
+    setOrderError(null);
     try {
       const result = await createOrder({
         customer_name: name,
@@ -83,7 +85,7 @@ export default function CheckoutPage() {
         payer_type: payerType,
         inn: payerType === 'company' ? inn : null,
         items: cart.items.map((i) => ({
-          product_variation_id: 0,
+          product_variation_id: i.variationId,
           product_name: i.name,
           variant_label: i.variant,
           qty: i.qty,
@@ -94,9 +96,9 @@ export default function CheckoutPage() {
       cart.clear();
       setStep(5);
     } catch (e) {
-      setOrderNumber('СМ-' + Math.floor(10000 + Math.random() * 89999));
-      cart.clear();
-      setStep(5);
+      // Заказ НЕ создался — показываем настоящую ошибку и оставляем
+      // корзину нетронутой, чтобы покупатель мог попробовать снова.
+      setOrderError('Не удалось оформить заказ. Попробуйте ещё раз через минуту или напишите нам в чат.');
     } finally {
       setSubmitting(false);
     }
@@ -242,6 +244,9 @@ export default function CheckoutPage() {
             <button className="btn btn-coral" onClick={next} disabled={submitting}>
               {submitting ? <Loader2 size={16} className="animate-spin" /> : payerType === 'person' ? <><CreditCard size={16} /> Оплатить картой / СБП</> : <><FileText size={16} /> Сформировать счёт (PDF)</>}
             </button>
+            {orderError && (
+              <div className="mt-3 text-sm font-bold" style={{ color: 'var(--coral-dark)' }}>{orderError}</div>
+            )}
           </div>
         )}
 
